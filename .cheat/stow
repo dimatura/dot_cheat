@@ -1,0 +1,10 @@
+
+with cmake:
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/stow/<mypkg>
+
+with automake:
+./configure --prefix=/usr/local/stow/<mypkg>
+
+then
+cd /usr/local/stow/<mypkg>
+stow <mypkg>

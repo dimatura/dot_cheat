@@ -1,0 +1,3 @@
+# get info on device
+
+hdparm -I /dev/sda 

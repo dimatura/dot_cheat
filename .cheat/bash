@@ -1,0 +1,69 @@
+# To implement a for loop:
+for file in *;
+do 
+    echo $file found;
+done
+
+# To implement a case command:
+case "$1"
+in
+    0) echo "zero found";;
+    1) echo "one found";;
+    2) echo "two found";;
+    3*) echo "something beginning with 3 found";;
+esac
+
+# Turn on debugging:
+set -x
+
+# Turn off debugging:
+set +x
+
+# exit if any command returns non zero
+set -e
+
+# Retrieve N-th piped command exit status
+printf 'foo' | fgrep 'foo' | sed 's/foo/bar/'
+echo ${PIPESTATUS[0]}  # replace 0 with N
+
+# Lock file:
+( set -o noclobber; echo > my.lock ) || echo 'Failed to create lock file'
+
+# get last exit code
+echo $?
+
+# if then
+if [[ $(grep not_there /dev/null) = '']]
+then
+    echo -n hi
+else
+    echo -n lo
+fi
+
+# output to anonymous file
+# same as
+# grep somestring file1 > /tmp/a
+# grep somestring file2 > /tmp/b
+# diff /tmp/a /tmp/b
+diff <(grep somestring file1) <(grep somestring file2)
+
+# repeat last argument of last command
+grep somestring /long/path
+vi !$ # edit /long/path
+
+# repeat all arguments of last command
+grep isthere /foo/path/bla
+egrep !:1-$ # !* also works
+
+# change path to remove everything up to folder
+grep isthere /long/path/to/file.txt
+cd !$:h
+
+# find if command exists
+# (command -v seems similar to which)
+if command -v given-command > /dev/null 2>&1; then
+    echo given-command is available
+else
+    echo given-command is not available
+fi
+

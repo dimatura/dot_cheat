@@ -1,0 +1,28 @@
+# get info
+sudo smartctl -i /dev/sdb
+
+# short tests
+# check "current_pending_sector", "offline_uncorrectable"; should be 0
+# also "completed without error"
+sudo smartctl -t short /dev/sdc
+sudo smartctl -t conveyance /dev/sdc
+
+# long test (hours)
+sudo smartctl -t long /dev/sdc
+
+# enable smart
+sudo smartctl -s on /dev/sdc
+
+# get all info not sure if ata part is necesssary
+sudo smartctl -a -d ata /dev/sdc
+
+# get status pass/fail
+sudo smartctl -H /dev/sdc
+
+# get selftest results
+sudo smartctl -l selftest /dev/sdc
+
+# for USB drives, try '-d sat' option.
+
+note: you can use /dev/by-label or /dev/by-id as well.
+e.g. smartctl -l selftest /dev/by-id/easystore01

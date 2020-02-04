@@ -1,0 +1,47 @@
+
+# --keep-all-tagged/--must-match-tagged: keep everything in TAGGED_DIR, undupe stuff in NEW_DIR
+# -b: filter by same basename before hash matching (hash is blake2)
+# -g: progress bar
+rmlint --keep-all-tagged --must-match-tagged -b -g -D NEW_DIR // TAGGED_DIR
+
+# -D: find duplicate dirs
+rmlint -D NEW_DIR TAGGED_DIR
+
+# when running rmlint.sh script
+# -c: delete empty dirs
+# -d: no confirmation
+./rmlint.sh -c -d
+
+# -c sh:symlink: output symlinking shell file instead of rm
+rmlint -c sh:symlink data data2
+
+# -o sh:rmlint_foo.sh: output rmlint_foo.sh instead of rmlint.sh
+# -o json:rmlint_foo.json: output rmlint_foo.json instead of rmlint.json
+rmlint -o sh:rmlint_foo.sh -o json:rmlint_foo.json foo bar
+
+# xattr: write hash into xattrs, keep updated
+# -U: --write-unfinished: include files in output that have not been hashed fully (i.e. files that do not appear to have a duplicate)
+rmlint -U --xattr-write large_dir/
+# use xattr
+rmlint --xattr-read large_dir/
+
+# Quick re-run on large datasets using different ranking criteria on second run:
+rmlint large_dir/ # First run; writes rmlint.json
+rmlint --replay rmlint.json large_dir -S MaD
+
+# Merge together previous runs, but prefer the originals to be from ``b.json`` and
+# make sure that no files are deleted from ``b.json``:
+rmlint --replay a.json // b.json -k
+
+# Search only for duplicates and duplicate directories
+rmlint -T "df,dd" .
+
+# Do more complex traversal using ``find(1)``.
+find /usr/lib -iname '*.so' -type f | rmlint - # find all duplicate .so files
+find ~/pics -iname '*.png' | ./rmlint - # compare png files only
+
+# Inject user-defined command into shell script output:
+rmlint -o sh -c sh:cmd='echo "original:" "$2" "is the same as" "$1"'
+
+# Compare if the directories a b c and are equal
+rmlint --equal a b c; echo $?  # Will print 0 if they are equal

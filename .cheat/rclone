@@ -1,0 +1,40 @@
+# list remotes
+rclone listremotes
+
+# upload DIR1, excluding some files
+# if there's stuff in DIR1, it's contents will be updated
+# (similar to rsync DIR1/ REMOTE:DIR1)
+rclone copy -v --exclude '*.mp4' DIR1 REMOTE:DIR1
+
+# mkdir
+rclone mkdir -v REMOTE:foo
+
+# -n: dry run
+# --ignore-existing: never update existing files
+# --size-only only use size
+
+# list top-level dirs
+rclone lsd REMOTE:
+
+# this lists *all* the files, may be really slow
+rclone ls REMOTE:
+
+# listonly jpg
+rclone  ls gdrv:boards/sayas --include "*.jpg"
+rclone --include "*.jpg" ls gdrv:boards/sayas
+
+# faster settings for gdrive
+# larger payload per transfer and more parallel streams
+# best: large, identically sized files
+# less, larger files is better
+rclone --transfers=32 --checkers=16 --drive-chunk-size=16384k \
+       --drive-upload-cutoff=16384k  copy /som/hmangala/10g REMOTE:myfiles
+
+# find out size
+rclone size REMOTE:mydir/foo
+
+# copy to mydir
+mkdir mydir
+rclone --transfers=12 copy REMOTE:foo/bar mydir
+
+# for grouping into large big tars, consider 'fpart'

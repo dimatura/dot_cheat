@@ -1,0 +1,20 @@
+# assuming emacs mode
+
+c-f  Move forward
+c-b  Move backward
+c-p  Move up
+c-n  Move down
+c-a  Jump to beginning of line
+c-e  Jump to end of line
+c-d  Delete forward
+c-h  Delete backward
+c-k  Delete forward to end of line
+c-u  Delete entire line
+
+# use vi mode with jj for escape
+# if this is put in .inputrc other readline shells will use it, eg python.
+
+set editing-mode vi
+set keymap vi
+set keymap vi-insert
+"jj": vi-movement-mode

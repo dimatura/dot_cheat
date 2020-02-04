@@ -1,0 +1,30 @@
+# ctrl-T to paste fzf output on command line
+# ALT-C to cd into selected directory
+
+# fzf from stdin, write to file
+find -name '*.txt' | fzf > selected
+
+# edit
+vim $(fzf)
+
+# run fzf with default command (find)
+# ctrl-j/k or ctrl-n/p to move
+fzf
+
+# run in multi mode, use tab and shift-tab to select/deselect
+fzf -m
+
+# fzf in tmux
+fzf-tmux
+
+# to autocomplete paths with fzf
+fzf ~/mydir/**<TAB>
+
+# select process
+kill -9 <TAB>
+
+# hostnames /etc/hosts and .ssh/config
+ssh **<TAB>
+
+# env vars
+unset **<TAB>

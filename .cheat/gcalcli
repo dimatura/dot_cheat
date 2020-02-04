@@ -1,0 +1,11 @@
+# add event with interactive details
+gcalcli add
+
+# today's events
+gcalcli agenda
+
+# week events
+gcalcli calw
+
+# month events
+gcalcli calm

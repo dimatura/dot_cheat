@@ -1,0 +1,5 @@
+# type can be A, NS, MX, etc
+nslookup -type=A gather.ai
+
+# resolve gather.ai using this server
+nslookup -type=A gather.ai ns-1165.awsdns-17.org.

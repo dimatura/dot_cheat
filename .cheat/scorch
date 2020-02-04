@@ -1,0 +1,29 @@
+
+# add all files found and compute hash
+scorch -v -d scorch.db add myfiles/
+
+# append files, don't check files already in db
+scorch -v -d scorch.db append myfiles/
+
+# check
+scorch -v -d scorch.db check myfiles/
+
+# list unhashed files
+scorch -v -d scorch.db list-unhashed myfiles/
+
+# check and rehash updated files
+scorch -v -d scorch.db check+update myfiles/
+
+# list dupes
+scorch -v -d scorch.db list-dups
+
+# list in md5sum compatible format, check with md5sum
+scorch -v -d scorch.db list myfiles/ | md5sum -c
+
+# remove files no longer in filesystem
+scorch -v -d scorch.db cleanup myfiles/
+
+# for cron, without -v only errors are reported.
+scorch -d scorch.db check+update /tmp/files
+scorch -d scorch.db append /tmp/files
+scorch -d scorch.db cleanup /tmp/files

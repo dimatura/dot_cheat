@@ -1,0 +1,2 @@
+# get disk info
+lshw -class disk

@@ -1,0 +1,2 @@
+# model optimizer
+./mo.py --input_shape "(1,1,480,640)" --input_model ~/ws/barcodes/src/barcode_det/notebooks/segm8_d_opt3.onnx -o ~/ws/barcodes/src/barcode_det/notebooks/

@@ -1,0 +1,3 @@
+
+# rename 
+repren --from frobinator-server --to glurp-server --full --dry-run .

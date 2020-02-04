@@ -1,0 +1,2 @@
+sshfs root@10.11.99.1:/home/root sshmnt/remarkable
+fusermount -u sshmnt/remarkable
